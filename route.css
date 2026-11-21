@@ -1,0 +1,49 @@
+/* Разнос ответа по агентам: форма на месте поля ввода и журнал в блоке «Cyber Office».
+   Переменные .km берутся из app.css; запасные значения на случай, если файл не подхватится. */
+.km-route,.km-route-log{--r-line:var(--km-line,var(--border,#2c3350));--r-text:var(--km-text,var(--foreground,#eef1f8));--r-muted:var(--km-muted,var(--muted-foreground,#a3acc2));
+ --r-panel:var(--km-panel,var(--card,#161a2c));--r-chip:var(--km-chip,#1e2440);--r-accent:var(--km-accent,#5ff3ff);
+ --r-warn:var(--km-wait-text,#ffc04d);--r-info:var(--km-done-text,#7cbcff);--r-bad:var(--km-err-text,#ff8a8a);--r-ok:var(--km-work,#2fd27a)}
+.km-route{display:grid;gap:10px;padding:12px;border:1px solid var(--r-line);border-radius:10px;background:var(--r-panel);color:var(--r-text);font:inherit;max-height:min(70vh,640px);overflow:auto;outline:none}
+.km-route[data-theme=light]{--r-chip:var(--km-chip,#f3eee3);--r-warn:var(--km-wait-text,#8a5600);--r-info:var(--km-done-text,#1d5fbf);--r-bad:var(--km-err-text,#b3262f);--r-ok:#11733f}
+.km-route-head h2{margin:0;font-size:15px;font-weight:700}
+.km-route-head p{margin:2px 0 0;color:var(--r-muted);font-size:12.5px}
+.km-route-rows{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.km-route-row{display:grid;grid-template-columns:minmax(180px,240px) 1fr;gap:10px;padding:10px;border:1px solid var(--r-line);border-radius:8px;border-left-width:4px}
+.km-route-row.is-on{border-left-color:var(--r-ok)}
+.km-route-row.is-blocked{opacity:.7;border-left-color:var(--r-bad);background:repeating-linear-gradient(135deg,transparent 0 8px,color-mix(in srgb,var(--r-bad) 7%,transparent) 8px 16px)}
+.km-route-who{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;align-content:start}
+.km-route-who input[type=checkbox]{width:18px;height:18px;margin:0;accent-color:var(--r-ok)}
+.km-route-avatar{display:flex;gap:8px;align-items:center;min-width:0;cursor:pointer}
+.km-route-avatar .km-px{image-rendering:pixelated;flex:none}
+.km-route-noone{display:grid;place-items:center;width:32px;height:21px;border:1px dashed var(--r-line);border-radius:4px;color:var(--r-muted);font-weight:700}
+.km-route-name{display:grid;min-width:0;line-height:1.2}
+.km-route-name b{font-size:13.5px}
+.km-route-name span{color:var(--r-muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.km-route-who select{grid-column:1/-1;width:100%;min-height:30px;padding:3px 6px;border:1px solid var(--r-line);border-radius:6px;background:var(--r-chip);color:var(--r-text);font:inherit;font-size:12.5px}
+.km-route-body{display:grid;gap:6px;min-width:0}
+.km-route-body textarea{width:100%;box-sizing:border-box;resize:vertical;min-height:44px;padding:6px 8px;border:1px solid var(--r-line);border-radius:6px;background:var(--r-chip);color:var(--r-text);font:inherit;font-size:13.5px;line-height:1.4}
+.km-route-note{margin:0;color:var(--r-muted);font-size:12px}
+.km-route-tags{display:flex;flex-wrap:wrap;gap:4px 6px;margin:0;min-height:0}
+.km-route-tag{display:inline-block;padding:1px 7px;border-radius:999px;border:1px solid currentColor;font-size:11.5px;line-height:1.5;white-space:nowrap}
+.km-route-tag.is-warn{color:var(--r-warn)}
+.km-route-tag.is-info{color:var(--r-info)}
+.km-route-tag.is-bad{color:var(--r-bad)}
+.km-route-draft,.km-route-link{padding:1px 8px;border:1px solid var(--r-line);border-radius:999px;background:transparent;color:var(--r-text);font:inherit;font-size:11.5px;cursor:pointer}
+.km-route-draft:hover,.km-route-link:hover{border-color:var(--r-accent)}
+.km-route-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:sticky;bottom:-12px;margin:0 -12px -12px;padding:10px 12px;background:var(--r-panel);border-top:1px solid var(--r-line)}
+.km-route-send,.km-route-cancel{min-height:32px;padding:4px 14px;border-radius:7px;font:inherit;font-weight:600;cursor:pointer}
+.km-route-send{border:1px solid transparent;background:var(--r-ok);color:#06210f}
+.km-route[data-theme=light] .km-route-send:not(:disabled){color:#fff}
+.km-route-send:disabled{background:var(--r-chip);color:var(--r-muted);cursor:not-allowed}
+.km-route-cancel{border:1px solid var(--r-line);background:transparent;color:var(--r-text)}
+.km-route-cancel:disabled{opacity:.6;cursor:not-allowed}
+.km-route-hint{color:var(--r-muted);font-size:11.5px;margin-left:auto}
+.km-route-empty,.km-route-error{margin:0;font-size:13px}
+.km-route-error{color:var(--r-bad)}
+.km-route button:focus-visible,.km-route select:focus-visible,.km-route textarea:focus-visible,.km-route input:focus-visible{outline:2px solid var(--r-accent);outline-offset:2px}
+.km-route-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.km-route-log h3{margin:8px 0 4px;font-size:12px;font-weight:700;color:var(--km-muted,var(--muted-foreground))}
+.km-route-log ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:12px}
+.km-route-log li{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.km-route-log time{color:var(--km-muted,var(--muted-foreground));font-variant-numeric:tabular-nums}
+@media (max-width:640px){.km-route-row{grid-template-columns:1fr}.km-route-hint{margin-left:0}}

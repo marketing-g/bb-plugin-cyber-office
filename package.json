@@ -1,0 +1,49 @@
+{
+  "name": "bb-plugin-cyber-office",
+  "version": "0.1.0",
+  "description": "A team of agents with distinct roles in a pixel office. The coordinator assigns tasks, the critic reviews the work, and you get one question with options.",
+  "author": "sumkarisa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marketing-g/bb-plugin-cyber-office.git"
+  },
+  "type": "module",
+  "engines": {
+    "bb": ">=0.49",
+    "bbPluginSdk": ">=0.6.132"
+  },
+  "bb": {
+    "name": "Cyber Office",
+    "description": "A team of agents with distinct roles in a pixel office. The coordinator assigns tasks, the critic reviews the work, and you get one question with options.",
+    "branding": {
+      "icon": "Users"
+    },
+    "server": "./server.ts",
+    "app": "./app.tsx",
+    "skills": [
+      "./skills"
+    ]
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/model.test.ts tests/server.test.mjs tests/dispatch.test.mjs tests/itog.test.ts tests/itog-answer.test.ts tests/kiborgi.test.ts tests/route.test.mjs tests/compat.test.mjs tests/scout.test.ts tests/scout-server.test.ts tests/foreman.test.ts tests/pass.test.ts tests/ask.test.ts tests/ask-server.test.mjs tests/flow.test.ts tests/show.test.ts tests/preview.test.mjs tests/skill-catalog.test.ts",
+    "check-after-update": "node scripts/check-after-update.mjs",
+    "preview:build": "node scripts/build-preview.mjs"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@get-bb/plugin-sdk": "0.6.132",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "better-sqlite3": "^12.11.1",
+    "cron-parser": "^5.10.6",
+    "hono": "^4.13.19",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  },
+  "license": "MIT"
+}

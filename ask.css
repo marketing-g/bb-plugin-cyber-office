@@ -1,0 +1,27 @@
+.km.km-ask{min-height:0;padding:16px;max-height:65vh;overflow:auto}
+.km-ask h2{font-size:18px;line-height:1.35;margin-bottom:8px;overflow-wrap:anywhere}
+.km-ask .km-ask-context{color:var(--km-muted);font-size:12px;margin:6px 0 12px}
+.km-ask-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px;margin:12px 0 16px!important}
+.km-ask-card{position:relative;background:var(--km-panel);border:1px solid var(--km-line);border-radius:10px;overflow:hidden}
+.km-ask-card.is-default{border-color:var(--km-wait)}
+.km-ask .km-ask-choice{position:relative;display:block;width:100%;height:100%;padding:0;text-align:left;border-radius:9px}
+.km-ask .km-ask-choice:hover:not(:disabled){background:color-mix(in srgb,var(--km-accent) 10%,transparent)}
+.km-ask .km-ask-choice:focus-visible{outline-offset:-4px}
+.km-ask .km-ask-choice:disabled{opacity:.6}
+.km-ask-caption{display:block;padding:12px;overflow-wrap:anywhere}
+.km-ask-caption small{display:block;color:var(--km-wait-text);font-size:11px;margin-top:6px}
+.km-ask-preview{position:absolute;top:0;left:0;width:100%;height:190px;overflow:hidden;pointer-events:none;display:block;background:var(--km-bg2,#0d1117);color:var(--km-muted);font-size:12px}
+/* FilePreview BB рисует просмотрщик с панелью и шириной от контейнера: панель прячем, картинку растягиваем в карточку (11.11, вживую). */
+.km-ask-preview>*{width:100%;height:100%;min-height:0!important}
+.km-ask-preview .sticky{display:none!important}
+.km-ask-preview .pt-4{padding:0!important}
+.km-ask-preview button{display:block;width:100%;height:190px}
+.km-ask-preview img{width:100%!important;height:190px!important;max-width:none!important;max-height:none!important;object-fit:contain}
+.km-ask-image-space{display:block;height:190px}
+.km-ask-file{position:relative;padding:0 12px 12px;font-size:12px;overflow-wrap:anywhere}
+.km-ask-file a{color:var(--km-accent)}
+.km-ask label{display:block;font-weight:600;margin-bottom:6px}
+.km-ask textarea{display:block;width:100%;resize:vertical;min-height:60px;background:var(--km-panel);border:1px solid var(--km-line);border-radius:8px;padding:10px}
+.km-ask .km-ask-send{margin-top:8px;padding:8px 16px;background:var(--km-accent);color:var(--km-ink);border-radius:7px;font-weight:600}
+.km-ask .km-ask-send:disabled{opacity:.5}
+.km-ask [role=alert]{color:var(--km-err-text);margin-top:8px}

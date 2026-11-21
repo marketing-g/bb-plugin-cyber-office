@@ -1,0 +1,55 @@
+{
+  "blocks": [
+    {"id":"onboarding","title":"Подключение клиента","steps":[
+      {"id":"onboarding-1","title":"Принять заявку","role":"stas","output":"Кто клиент, что болит, бюджет, срок","needsUser":true},
+      {"id":"onboarding-2","title":"Разведка клиента","role":"sherlock","output":"Что продаёт, кто покупает, что у конкурентов; факты с датой проверки","needsUser":false},
+      {"id":"onboarding-3","title":"Предложение и цена","role":"mark","output":"Что делаем за месяц, число, цена; цену решает вы","needsUser":true},
+      {"id":"onboarding-4","title":"Договор и оплата","role":"stas","output":"Условия и первая оплата, только вы руками","needsUser":true},
+      {"id":"onboarding-5","title":"Доступы и данные","role":"ada","output":"Веб-аналитика, рекламные кабинеты, выгрузки продаж; ключи даёт вы","needsUser":true},
+      {"id":"onboarding-6","title":"Папка и проект","role":"stas","output":"Папка проекта с правилами, проект BB, тред Стаса","needsUser":false}
+    ]},
+    {"id":"brief","title":"Бриф","steps":[{"id":"brief-1","title":"Согласовать задачу","role":"stas","output":"Цель, число, срок, запреты, бюджет","needsUser":true}]},
+    {"id":"analytics","title":"Аналитика","steps":[{"id":"analytics-1","title":"Разобрать данные","role":"ada","output":"Что продаётся, откуда, сколько стоит заявка","needsUser":false},{"id":"analytics-2","title":"Получить данные кампании","role":"ada","output":"Экспорт кабинета от вас руками","needsUser":true}]},
+    {"id":"research","title":"Ресёрч","steps":[{"id":"research-1","title":"Собрать факты","role":"sherlock","output":"Конкуренты, спрос, референсы, факты с датой проверки","needsUser":false}]},
+    {"id":"strategy","title":"Стратегия","steps":[{"id":"strategy-1","title":"Выбрать план","role":"mark","output":"Канал, число, порог, план Б","needsUser":false},{"id":"strategy-2","title":"Утвердить стратегию","role":"stas","output":"Решение пользователя","needsUser":true}]},
+    {"id":"production","title":"Производство","steps":[
+      {"id":"copy","title":"Тексты","role":"nora","output":"Тексты по прайсу клиента","needsUser":false},
+      {"id":"seo","title":"SEO","role":"sema","output":"SEO по задаче клиента","needsUser":false},
+      {"id":"design","title":"Блок дизайна D0-D7","role":"pixel","output":"Принятое направление и тираж","needsUser":true,"children":[
+        {"id":"d0","title":"D0. Задание","role":"stas","output":"Формат, место, запреты; до 10 строк","needsUser":false},
+        {"id":"d1","title":"D1. Референсы","role":"sherlock","output":"5-8 примеров, по строке «что берём»; без платных вызовов","needsUser":false},
+        {"id":"d2","title":"D2. Выбор пользователя","role":"stas","output":"1-2 референса, один вопрос с картинками","needsUser":true},
+        {"id":"d3","title":"D3. Направление","role":"pixel","output":"2 эскиза, до 10 кредитов на изображения","needsUser":false},
+        {"id":"d4","title":"D4. Критик","role":"rams","output":"PASS или REWORK, место и доказательство; максимум 2 круга","needsUser":false},
+        {"id":"d5","title":"D5. Показ","role":"stas","output":"2 эскиза и список проверок; да, нет или правка от вас","needsUser":true},
+        {"id":"d6","title":"D6. Запись","role":"stas","output":"Каждое нет в дизайн-правила в тот же день, строка на правило","needsUser":false},
+        {"id":"d7","title":"D7. Тираж","role":"pixel","output":"Форматы, языки, размеры; только после да на D5, сборка с Болтом","needsUser":false}
+      ]},
+      {"id":"video","title":"Видео и голос","role":"kadr","output":"Видео по принятому направлению","needsUser":false},
+      {"id":"engineering","title":"Сайт и код","role":"bolt","output":"Сборка с проверками и приёмкой направления","needsUser":false}
+    ]},
+    {"id":"launch","title":"Запуск","steps":[
+      {"id":"campaign","title":"Запустить кампанию","role":"tara","output":"Файл импорта и ручная публикация вами","needsUser":true,"children":[
+        {"id":"campaign-1","title":"Экспорт кабинета","role":"ada","output":"XLS из рекламного кабинета, вы руками","needsUser":true},
+        {"id":"campaign-2","title":"Разбор истории","role":"ada","output":"Цена заявки, что работало","needsUser":false},
+        {"id":"campaign-3","title":"Аудит трекинга и событий","role":"ada","output":"Список дыр, события проверены; правки кода Болтом, прод по да","needsUser":true},
+        {"id":"campaign-4","title":"Ресёрч креативов","role":"sherlock","output":"5-8 референсов с разбором, выбор 1-2 вами","needsUser":true},
+        {"id":"campaign-5","title":"Оффер и тексты","role":"nora","output":"Заголовки, тексты, цены проверены по прайсу","needsUser":false},
+        {"id":"campaign-6","title":"Креативы","role":"pixel","output":"Направление, проверка Рамсом, тираж после приёмки","needsUser":true},
+        {"id":"campaign-7","title":"Файл импорта","role":"tara","output":"Таблица кампаний","needsUser":false},
+        {"id":"campaign-8","title":"Публикация","role":"tara","output":"Кампания в кабинете, только вы руками","needsUser":true},
+        {"id":"campaign-9","title":"Замер через 48-72 ч","role":"ada","output":"Факт против порога по новому экспорту, решение пользователя","needsUser":true}
+      ]},
+      {"id":"deploy","title":"Выкладка","role":"bolt","output":"Прод и оплаты только по да пользователя","needsUser":true}
+    ]},
+    {"id":"measurement","title":"Замер","steps":[{"id":"measurement-1","title":"Сверить факт и порог","role":"ada","output":"Факт против порога через 48-72 ч","needsUser":false}]},
+    {"id":"report","title":"Отчёт клиенту","steps":[
+      {"id":"report-1","title":"Собрать цифры","role":"ada","output":"Факт за период против порога, деньги полученные, а не обещанные","needsUser":false},
+      {"id":"report-2","title":"Вывод и что дальше","role":"mark","output":"Что сработало, что остановили, предложение на следующий период","needsUser":false},
+      {"id":"report-3","title":"Текст отчёта","role":"nora","output":"Отчёт на языке клиента, без версий и внутренних ссылок","needsUser":false},
+      {"id":"report-4","title":"PDF A4","role":"bolt","output":"Вёрстка A4 с графиками, файл в папке клиента","needsUser":false},
+      {"id":"report-5","title":"Отправка","role":"stas","output":"Письмо клиенту только после да пользователя","needsUser":true}
+    ]},
+    {"id":"improvements","title":"Улучшения","steps":[{"id":"improvements-1","title":"Подготовить решение","role":"mark","output":"Усилить, исправить, остановить","needsUser":false},{"id":"improvements-2","title":"Принять решение","role":"stas","output":"Утверждение вами остановки или усиления","needsUser":true},{"id":"improvements-3","title":"Новый круг","role":"stas","output":"Усиление возвращается в блок «Стратегия» с цифрой замера; остановка закрывает задачу","needsUser":false}]}
+  ]
+}

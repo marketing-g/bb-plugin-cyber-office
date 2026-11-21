@@ -1,0 +1,124 @@
+/* Карточка «Итог» в ответе агента. Своя область .kmi: в чате BB нет токенов офиса .km */
+.kmi{--kmi-ink:#1d1b26;--kmi-bg:var(--card,#161a2c);--kmi-text:var(--foreground,#eef1f8);--kmi-muted:var(--muted-foreground,#a3acc2);--kmi-line:#343c62;
+ --kmi-done:#59a8ff;--kmi-done-t:#9ccbff;--kmi-part:#5ff3ff;--kmi-part-t:#8af6ff;--kmi-work:#2fd27a;--kmi-work-t:#6fe7a6;
+ --kmi-ask:#ffb020;--kmi-ask-t:#ffc04d;--kmi-block:#ff5a5a;--kmi-block-t:#ff9a9a;--kmi-none:#7a8299;--kmi-none-t:#b9c0d4;
+ --kmi-ask-bg:#2b2412;--kmi-chip:#1e2440;--kmi-warn-bg:#3a1a20;--kmi-warn-t:#ffc9cd;
+ --kmi-shadow:#05060d;
+ display:block;margin:10px 0;max-width:760px;color:var(--kmi-text);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;container-type:inline-size}
+.kmi[data-theme=light]{--kmi-bg:var(--card,#fffdf8);--kmi-text:var(--foreground,#1f2333);--kmi-muted:var(--muted-foreground,#5b6275);--kmi-line:#cdbf9f;
+ --kmi-done:#3b82f6;--kmi-done-t:#1d5fbf;--kmi-part:#14a3b0;--kmi-part-t:#0b6a73;--kmi-work:#22b866;--kmi-work-t:#11733f;
+ --kmi-ask:#ffb020;--kmi-ask-t:#8a5600;--kmi-block:#e5484d;--kmi-block-t:#b3262f;--kmi-none:#8a90a3;--kmi-none-t:#5b6275;
+ --kmi-ask-bg:#fff4dc;--kmi-chip:#f3eee3;--kmi-warn-bg:#ffe3e5;--kmi-warn-t:#7a1018;--kmi-shadow:#1d1b26}
+.kmi[data-tone=done]{--kmi-c:var(--kmi-done);--kmi-ct:var(--kmi-done-t)}
+.kmi[data-tone=part]{--kmi-c:var(--kmi-part);--kmi-ct:var(--kmi-part-t)}
+.kmi[data-tone=work]{--kmi-c:var(--kmi-work);--kmi-ct:var(--kmi-work-t)}
+.kmi[data-tone=ask]{--kmi-c:var(--kmi-ask);--kmi-ct:var(--kmi-ask-t)}
+.kmi[data-tone=block]{--kmi-c:var(--kmi-block);--kmi-ct:var(--kmi-block-t)}
+.kmi[data-tone=none]{--kmi-c:var(--kmi-none);--kmi-ct:var(--kmi-none-t)}
+:where(.kmi) *{box-sizing:border-box}
+:where(.kmi) :where(h3,p,ol,ul,dl,dd){margin:0;padding:0}
+:where(.kmi) :where(ol,ul){list-style:none}
+:where(.kmi) button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0;margin:0;text-align:inherit}
+.kmi :focus-visible{outline:3px solid var(--kmi-part);outline-offset:2px}
+.kmi-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.kmi-card{position:relative;background:var(--kmi-bg);border:3px solid var(--kmi-c);border-left-width:10px;border-radius:6px;padding:12px 16px 14px;box-shadow:4px 4px 0 var(--kmi-shadow);display:grid;gap:10px}
+.kmi[data-theme=light] .kmi-card{box-shadow:4px 4px 0 color-mix(in srgb,var(--kmi-shadow) 85%,transparent)}
+
+/* шапка: статус как табличка над столом в офисе */
+.kmi-head{display:flex;align-items:center;gap:10px;min-height:26px}
+.kmi-status{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--kmi-ct)}
+.kmi-glyph{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:3px;background:var(--kmi-c);color:var(--kmi-ink);flex:none}
+.kmi-glyph svg{fill:currentColor;display:block}
+.kmi-kind{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--kmi-muted)}
+.kmi-live{display:inline-flex;gap:3px}
+.kmi-live i{width:5px;height:5px;background:var(--kmi-ct);animation:kmi-blink 1s steps(1) infinite}
+.kmi-live i:nth-child(2){animation-delay:.33s}.kmi-live i:nth-child(3){animation-delay:.66s}
+@keyframes kmi-blink{50%{opacity:.15}}
+
+/* главное: одна строка итога крупно */
+.kmi-sum-row{display:flex;align-items:baseline;gap:10px;min-width:0}
+.kmi-summary{flex:1 1 auto;min-width:0;font-size:17px;line-height:1.35;font-weight:700;letter-spacing:-.01em;text-wrap:pretty}
+/* итог одной строкой: длинный обрезаем многоточием, «Целиком» раскрывает */
+.kmi-summary[data-clamp]{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kmi-more{flex:none;font-size:12px;font-weight:700;color:var(--kmi-done-t);padding:2px 4px;border-radius:3px}
+.kmi-more:hover{text-decoration:underline}
+.kmi-summary.is-empty{color:var(--kmi-muted);font-weight:500;font-style:italic}
+/* плохой итог: серая пунктирная рамка, чтобы не выглядел как сданная работа */
+.kmi[data-weak] .kmi-card{border-style:dashed;border-color:var(--kmi-none);border-left-style:solid}
+.kmi[data-weak] .kmi-summary{color:var(--kmi-muted);font-weight:600}
+.kmi-warn{background:var(--kmi-warn-bg);color:var(--kmi-warn-t);border-radius:4px;padding:6px 10px;font-size:13px}
+
+/* нужно от вас: как блок «Ждут вас» в офисе */
+.kmi-asks{background:var(--kmi-ask-bg);border:2px solid var(--kmi-ask);border-radius:5px;padding:9px 12px 10px}
+.kmi-asks-title{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--kmi-ask-t);margin-bottom:6px}
+.kmi-asks-title b{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:3px;background:var(--kmi-ask);color:var(--kmi-ink);letter-spacing:0;font-size:12px}
+.kmi-asks ol{display:grid;gap:8px}
+.kmi-ask{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:start}
+.kmi-ask-n{display:grid;place-items:center;width:22px;height:22px;border:2px solid var(--kmi-ask);border-radius:3px;font-weight:800;font-size:12px;color:var(--kmi-ask-t);margin-top:1px}
+.kmi-ask-body{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.kmi-ask-text{font-weight:650;font-size:15px;flex:1 1 220px;min-width:0}
+.kmi-opts{display:flex;flex-wrap:wrap;gap:6px}
+.kmi-opt{min-width:40px;min-height:32px;padding:5px 12px;border-radius:4px;background:var(--kmi-ask);color:var(--kmi-ink);font-weight:800;text-align:center;box-shadow:2px 2px 0 var(--kmi-shadow);transition:transform .08s ease,box-shadow .08s ease}
+.kmi-opt:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--kmi-shadow)}
+.kmi-opt:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--kmi-shadow)}
+.kmi-opt.is-free{background:transparent;color:var(--kmi-ask-t);border:2px solid var(--kmi-ask);box-shadow:none;padding:3px 12px}
+.kmi-opt[aria-pressed=true]{outline:3px solid var(--kmi-text);outline-offset:1px}
+.kmi-opt:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.kmi-opt.is-sent{cursor:default;transform:none;box-shadow:none}
+.kmi-opt-tag{margin-left:8px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.kmi-opt.is-free[aria-expanded=true]{background:var(--kmi-ask);color:var(--kmi-ink)}
+.kmi-asks-title small{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--kmi-muted)}
+.kmi-ask[data-sent] .kmi-ask-n{background:var(--kmi-ask);color:var(--kmi-ink)}
+.kmi-sent-text{flex-basis:100%;font-size:13px;color:var(--kmi-muted);overflow-wrap:anywhere}
+/* свой ответ: поле с микрофоном BB, растёт до 6 строк, дальше прокрутка */
+.kmi-free{flex-basis:100%;display:grid;gap:6px}
+.kmi-field{display:block;width:100%;min-height:58px;max-height:160px;resize:vertical;padding:8px 10px;border-radius:4px;border:2px solid var(--kmi-ask);background:var(--kmi-bg);color:var(--kmi-text);font:inherit;font-size:14px;line-height:1.4}
+.kmi-field.km-voice{padding-bottom:42px}
+.kmi-field:focus{outline:3px solid var(--kmi-part);outline-offset:1px}
+.kmi-free-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px}
+.kmi-send{min-height:32px;padding:5px 14px;border-radius:4px;background:var(--kmi-ask);color:var(--kmi-ink);font-weight:800;box-shadow:2px 2px 0 var(--kmi-shadow)}
+.kmi-send:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.kmi-hint{font-size:12px;color:var(--kmi-muted)}
+.kmi-note{flex-basis:100%;font-size:12px;color:var(--kmi-muted);min-height:0}
+.kmi-note:empty{display:none}
+.kmi-noasks{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--kmi-muted)}
+.kmi-noasks .kmi-glyph{width:18px;height:18px;background:var(--kmi-chip);color:var(--kmi-work-t)}
+
+/* подробности свёрнуты в строку: файлы счётчиком, «проверено», «дальше», «ещё» */
+.kmi-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--kmi-muted)}
+.kmi-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:-2px}
+.kmi-chip{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:3px 10px;border-radius:4px;background:var(--kmi-chip);font-size:12px;font-weight:700;color:var(--kmi-text)}
+.kmi-chip:hover{outline:2px solid var(--kmi-line)}
+.kmi-chip[aria-expanded=true]{outline:2px solid var(--kmi-c)}
+.kmi-caret{font-size:10px;color:var(--kmi-muted)}
+.kmi-panel{max-height:260px;overflow:auto;overscroll-behavior:contain;border-left:3px solid var(--kmi-line);padding:2px 0 2px 10px}
+.kmi-text{font-size:13px;white-space:pre-line;overflow-wrap:anywhere}
+.kmi-text .kmi-label{margin-right:6px}
+.kmi-files{display:grid;gap:4px}
+.kmi-file{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;background:var(--kmi-chip);border-radius:4px;padding:5px 8px;min-width:0}
+.kmi-file-name{font-weight:700;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:13px;overflow-wrap:anywhere}
+.kmi-file-dir{color:var(--kmi-muted);font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:12px;overflow-wrap:anywhere;flex:1 1 160px;min-width:0}
+.kmi-file-open,.kmi-file-text{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;min-width:0;flex:1 1 220px;color:inherit;text-decoration:none;background:none;border:0;padding:0;font:inherit;text-align:left}
+.kmi-file-open{cursor:pointer;border-radius:3px}
+.kmi-file-open .kmi-file-name{color:var(--kmi-done-t);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.kmi-file-open:hover .kmi-file-name{text-decoration-thickness:2px}
+.kmi-file-text{cursor:default}
+.kmi-ext{font-size:12px;font-weight:700;color:var(--kmi-done-t);padding:2px 4px;border-radius:3px;background:none;border:0;cursor:pointer}
+.kmi-ext:hover{text-decoration:underline}
+.kmi-copy{margin-left:auto;font-size:12px;font-weight:700;color:var(--kmi-done-t);padding:2px 4px;border-radius:3px}
+.kmi-copy:hover{text-decoration:underline}
+.kmi-rows{display:grid;gap:4px}
+.kmi-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;align-items:baseline;font-size:13px}
+.kmi-row dd{white-space:pre-line;overflow-wrap:anywhere}
+.kmi-src{margin-left:auto;font-size:12px;color:var(--kmi-muted);padding:2px 4px;border-radius:3px}
+.kmi-src:hover{color:var(--kmi-text);text-decoration:underline}
+.kmi-original{margin-top:6px}
+
+@container (max-width:460px){
+ .kmi-card{padding:10px 12px 12px;border-left-width:7px}
+ .kmi-summary{font-size:16px}
+ .kmi-asks-title small{flex-basis:100%;margin-left:0}
+ .kmi-row{grid-template-columns:1fr;gap:0}
+}
+@media (prefers-reduced-motion:reduce){.kmi-live i{animation:none}.kmi-opt{transition:none}}

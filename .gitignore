@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.npm-cache/
+# built by `npm run preview:build`
+preview.js
+preview.css
